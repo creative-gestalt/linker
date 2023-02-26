@@ -1,16 +1,21 @@
 <template>
   <v-container class="fill-height">
     <v-row>
-      <v-col cols="6" v-for="link in links" :key="link.title">
+      <v-col cols="4" v-for="link in links" :key="link.title">
         <v-card
           class="d-flex align-center justify-center"
-          :height="size"
-          :href="link.link"
+          href="#"
+          @click="handleNavigate(link.link)"
         >
           <v-card-text class="text-center">
-            <v-icon size="100" :color="link.color">mdi-{{ link.icon }}</v-icon>
+            <v-icon :size="mobile ? 50 : 100" :color="link.color">
+              mdi-{{ link.icon }}
+            </v-icon>
             <br />
-            {{ link.title }}
+            <div v-if="!mobile">{{ link.title }}</div>
+            <div v-else style="font-size: 10px; white-space: nowrap">
+              {{ link.title }}
+            </div>
           </v-card-text>
         </v-card>
       </v-col>
@@ -20,8 +25,13 @@
 
 <script setup lang="ts">
 import * as linker from "@/links.json";
-import { ref } from "vue";
+import { nextTick, ref } from "vue";
+import { useDisplay } from "vuetify";
 
 const links = ref([...linker.links]);
-const size = ref(200);
+const mobile = useDisplay().xs.value;
+
+function handleNavigate(link: string): void {
+  nextTick(() => (location.href = link));
+}
 </script>
