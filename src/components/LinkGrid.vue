@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import * as linker from "@/links.json";
+import * as linker from "@/assets/links.json";
 import { nextTick, ref } from "vue";
 import { useDisplay } from "vuetify";
 

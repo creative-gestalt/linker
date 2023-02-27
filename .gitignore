@@ -24,4 +24,4 @@ pnpm-debug.log*
 
 # Assets
 linker/
-src/links.json
+src/assets/links.json
