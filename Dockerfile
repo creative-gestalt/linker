@@ -17,4 +17,6 @@ RUN npm i -g serve
 # expose ports and run servers
 EXPOSE 8080
 # run the server
-ENTRYPOINT serve -s /linker/dist -l 8080
+ENTRYPOINT cp assets/links.json /linker/dist/ \
+    && cp assets/background.jpg /linker/dist/assets/ \
+    && serve -s /linker/dist -l 8080

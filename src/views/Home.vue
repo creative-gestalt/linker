@@ -1,5 +1,5 @@
 <template>
-  <v-img src="@/assets/space.jpg" alt="" height="100%" cover>
+  <v-img src="@/assets/background.jpg" alt="" height="100%" cover>
     <LinkGrid />
   </v-img>
 </template>

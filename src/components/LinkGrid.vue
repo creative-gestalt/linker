@@ -24,14 +24,21 @@
 </template>
 
 <script setup lang="ts">
-import * as linker from "@/assets/links.json";
-import { nextTick, ref } from "vue";
+import { nextTick, onMounted, ref } from "vue";
 import { useDisplay } from "vuetify";
 
-const links = ref([...linker.links]);
+const links = ref([] as any);
 const mobile = useDisplay().xs.value;
 
 function handleNavigate(link: string): void {
   nextTick(() => (location.href = link));
 }
+
+onMounted(() => {
+  fetch("/links.json")
+    .then((response) => response.json())
+    .then((data) => {
+      links.value = data.links;
+    });
+});
 </script>

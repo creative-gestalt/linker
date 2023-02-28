@@ -1,0 +1,11 @@
+version: "3.9"
+name: linker
+services:
+  linker:
+    image: creativegestalt/linker:latest
+    container_name: linker
+    volumes:
+      - ./assets:/assets
+    ports:
+      - "81:8080"
+    restart: always

@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 const routes = [
   {
+    redirect: "/",
     path: "/linker",
     component: () => import("@/layouts/default/Default.vue"),
     children: [
