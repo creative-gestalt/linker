@@ -4,22 +4,23 @@
 
     <v-divider></v-divider>
 
+    <v-list-item title="SSL">
+      <v-switch v-model="ssl" density="compact" label="SSL On/Off"></v-switch>
+    </v-list-item>
+
     <v-list density="compact" nav>
       <v-list-item title="New">
-        <v-text-field v-model="newBaseUrl" density="compact">
+        <v-text-field v-model="newBaseUrl" density="compact" variant="outlined">
           <template #append>
             <v-btn
               icon="mdi-check"
               @keyup.enter="addNewUrl"
               @click="addNewUrl"
               variant="text"
+              size="x-small"
             ></v-btn>
           </template>
         </v-text-field>
-      </v-list-item>
-
-      <v-list-item title="SSL">
-        <v-switch v-model="ssl" density="compact" label="SSL On/Off"></v-switch>
       </v-list-item>
 
       <v-list-item title="Url List">
@@ -28,6 +29,7 @@
             icon="mdi-pencil"
             :color="editMode ? 'orange' : 'grey'"
             @click="editMode = !editMode"
+            size="small"
           ></v-icon>
         </template>
         <v-radio-group v-if="!editMode" v-model="selectedUrl">
