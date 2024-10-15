@@ -1,11 +1,13 @@
 <template>
   <v-app theme="dark">
+    <default-nav />
     <default-view />
   </v-app>
 </template>
 
 <script lang="ts" setup>
 import DefaultView from "./View.vue";
+import DefaultNav from "./SideNav.vue";
 </script>
 
 <style>
