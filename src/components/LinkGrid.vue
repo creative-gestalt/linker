@@ -61,7 +61,7 @@ function toggleDrawer(): void {
   drawer.value = !drawer.value;
 }
 
-function handleNavigate(link: object): void {
+function handleNavigate(link: { [x: string]: any }): void {
   nextTick(
     () =>
       (location.href =
@@ -70,18 +70,22 @@ function handleNavigate(link: object): void {
   );
 }
 
-function hasSsl(link: object): boolean {
-  return sslMap.value.some((sslLink) => sslLink.title === link.title);
+function hasSsl(link: { [x: string]: any }): boolean {
+  return sslMap.value.some(
+    (sslLink: { [x: string]: any }) => sslLink.title === link.title
+  );
 }
 
-function updateLinkSsl(link: object): void {
+function updateLinkSsl(link: { [x: string]: any }): void {
   // check sslMap for link
-  const exists = sslMap.value.some((sslLink) => sslLink.title === link.title);
+  const exists = sslMap.value.some(
+    (sslLink: { [x: string]: any }) => sslLink.title === link.title
+  );
 
   if (exists) {
     // remove
     sslMap.value = sslMap.value.filter(
-      (sslLink) => sslLink.title !== link.title
+      (sslLink: { [x: string]: any }) => sslLink.title !== link.title
     );
   } else {
     // add
@@ -90,7 +94,7 @@ function updateLinkSsl(link: object): void {
 }
 
 onMounted(() => {
-  fetch("/links.json")
+  fetch("/linker/links.json")
     .then((response) => response.json())
     .then((data) => {
       links.value = data.links;

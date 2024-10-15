@@ -91,16 +91,8 @@ import { storeToRefs } from "pinia";
 import { ref } from "vue";
 
 const appStore = useAppStore();
-const {
-  drawer,
-  radius,
-  columns,
-  cardStyle,
-  cardColor,
-  selectedUrl,
-  baseUrls,
-  ssl,
-} = storeToRefs(appStore);
+const { drawer, radius, columns, cardStyle, cardColor, selectedUrl, baseUrls } =
+  storeToRefs(appStore);
 const columnOptions = ref([3, 4, 6, 12]);
 const cardStyles = ref([
   "elevated",
