@@ -8,7 +8,12 @@
       <v-list-item title="New">
         <v-text-field v-model="newBaseUrl" density="compact">
           <template #append>
-            <v-btn icon="mdi-check" @click="addNewUrl" variant="text"></v-btn>
+            <v-btn
+              icon="mdi-check"
+              @keyup.enter="addNewUrl"
+              @click="addNewUrl"
+              variant="text"
+            ></v-btn>
           </template>
         </v-text-field>
       </v-list-item>
