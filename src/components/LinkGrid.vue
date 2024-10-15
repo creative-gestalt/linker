@@ -9,19 +9,32 @@
     <v-row>
       <v-col :cols="columns" v-for="link in links" :key="link.title">
         <v-card
-          class="d-flex align-center justify-center"
           href="#"
-          @click="handleNavigate(link.port)"
+          @click="handleNavigate(link)"
           :style="{ borderRadius: `${radius}px` }"
           :variant="cardStyle"
           :color="cardColor"
         >
+          <v-card-title>
+            <v-btn
+              small
+              class="float-end"
+              :color="hasSsl(link) ? 'blue' : 'red'"
+              size="x-small"
+              @click.stop="updateLinkSsl(link)"
+              variant="text"
+            >
+              {{ hasSsl(link) ? "https" : "http" }}
+            </v-btn>
+          </v-card-title>
           <v-card-text class="text-center">
             <v-icon :size="mobile ? 50 : 100" :color="link.color">
               mdi-{{ link.icon }}
             </v-icon>
             <br />
-            <div v-if="!mobile">{{ link.title }}</div>
+            <div v-if="!mobile">
+              {{ link.title }}
+            </div>
             <div v-else style="font-size: 10px; white-space: nowrap">
               {{ link.title }}
             </div>
@@ -41,23 +54,43 @@ import { useAppStore } from "@/store/app";
 const links = ref([] as any);
 const mobile = useDisplay().xs.value;
 const appStore = useAppStore();
-const { drawer, radius, columns, cardStyle, cardColor, selectedUrl, ssl } =
+const { drawer, radius, columns, cardStyle, cardColor, selectedUrl, sslMap } =
   storeToRefs(appStore);
 
 function toggleDrawer(): void {
   drawer.value = !drawer.value;
 }
 
-function handleNavigate(port: string): void {
+function handleNavigate(link: object): void {
   nextTick(
     () =>
       (location.href =
-        (ssl.value ? "https://" : "http://") + `${selectedUrl.value}:${port}`)
+        (hasSsl(link) ? "https://" : "http://") +
+        `${selectedUrl.value}:${link.port}`)
   );
 }
 
+function hasSsl(link: object): boolean {
+  return sslMap.value.some((sslLink) => sslLink.title === link.title);
+}
+
+function updateLinkSsl(link: object): void {
+  // check sslMap for link
+  const exists = sslMap.value.some((sslLink) => sslLink.title === link.title);
+
+  if (exists) {
+    // remove
+    sslMap.value = sslMap.value.filter(
+      (sslLink) => sslLink.title !== link.title
+    );
+  } else {
+    // add
+    sslMap.value.push(link);
+  }
+}
+
 onMounted(() => {
-  fetch("/linker/links.json")
+  fetch("/links.json")
     .then((response) => response.json())
     .then((data) => {
       links.value = data.links;

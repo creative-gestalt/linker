@@ -4,10 +4,6 @@
 
     <v-divider></v-divider>
 
-    <v-list-item title="SSL">
-      <v-switch v-model="ssl" density="compact" label="SSL On/Off"></v-switch>
-    </v-list-item>
-
     <v-list density="compact" nav>
       <v-list-item title="New">
         <v-text-field v-model="newBaseUrl" density="compact" variant="outlined">

@@ -12,7 +12,7 @@ export const useAppStore = defineStore(
     const cardColor = ref("black lighten-4");
     const selectedUrl = ref("");
     const baseUrls = ref([] as string[]);
-    const ssl = ref(false);
+    const sslMap = ref([] as object[]);
 
     return {
       drawer,
@@ -22,7 +22,7 @@ export const useAppStore = defineStore(
       cardColor,
       selectedUrl,
       baseUrls,
-      ssl,
+      sslMap,
     };
   },
   {
