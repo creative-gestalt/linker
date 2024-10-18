@@ -57,7 +57,7 @@
       <v-list-item title="Radius">
         <v-slider v-model="radius"></v-slider>
       </v-list-item>
-      <v-list-item title="Columns">
+      <v-list-item title="Rows">
         <v-select
           v-model="columns"
           :items="columnOptions"
