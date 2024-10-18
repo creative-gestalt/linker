@@ -28,15 +28,12 @@
             size="small"
           ></v-icon>
         </template>
-        <v-radio-group v-if="!editMode" v-model="selectedUrl">
-          <v-radio
-            v-for="(url, index) of baseUrls"
-            :key="index"
-            :value="url"
-            :label="url"
-          >
-          </v-radio>
-        </v-radio-group>
+        <v-select
+          v-if="!editMode"
+          v-model="selectedUrl"
+          :items="baseUrls"
+          density="compact"
+        ></v-select>
         <div v-else>
           <v-btn
             v-for="(url, index) of baseUrls"
