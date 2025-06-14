@@ -54,6 +54,10 @@
     <v-divider></v-divider>
 
     <v-list density="compact" nav>
+      <v-list-item title="New Tab">
+        <v-switch v-model="newTab" class="pl-2"></v-switch>
+      </v-list-item>
+
       <v-list-item title="Radius">
         <v-slider v-model="radius"></v-slider>
       </v-list-item>
@@ -85,11 +89,19 @@
 <script lang="ts" setup>
 import { useAppStore } from "@/store/app";
 import { storeToRefs } from "pinia";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 const appStore = useAppStore();
-const { drawer, radius, columns, cardStyle, cardColor, selectedUrl, baseUrls } =
-  storeToRefs(appStore);
+const {
+  drawer,
+  radius,
+  columns,
+  cardStyle,
+  cardColor,
+  selectedUrl,
+  newTab,
+  baseUrls,
+} = storeToRefs(appStore);
 const columnOptions = ref([3, 4, 6, 12]);
 const cardStyles = ref([
   "elevated",
@@ -111,4 +123,10 @@ function addNewUrl(): void {
 function removeUrl(baseUrl: string): void {
   baseUrls.value = baseUrls.value.filter((url) => url !== baseUrl);
 }
+
+watch(baseUrls, () => {
+  if (baseUrls.value.length === 1) {
+    selectedUrl.value = baseUrls.value[0];
+  }
+});
 </script>

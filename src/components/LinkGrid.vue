@@ -10,7 +10,7 @@
       <v-col :cols="columns" v-for="link in links" :key="link.title">
         <v-card
           href="#"
-          @click="handleNavigate(link)"
+          @click.prevent="handleNavigate(link)"
           :style="{ borderRadius: `${radius}px` }"
           :variant="cardStyle"
           :color="cardColor"
@@ -54,20 +54,26 @@ import { useAppStore } from "@/store/app";
 const links = ref([] as any);
 const mobile = useDisplay().xs.value;
 const appStore = useAppStore();
-const { drawer, radius, columns, cardStyle, cardColor, selectedUrl, sslMap } =
-  storeToRefs(appStore);
+const {
+  drawer,
+  radius,
+  columns,
+  cardStyle,
+  cardColor,
+  selectedUrl,
+  newTab,
+  sslMap,
+} = storeToRefs(appStore);
 
 function toggleDrawer(): void {
   drawer.value = !drawer.value;
 }
 
 function handleNavigate(link: { [x: string]: any }): void {
-  nextTick(
-    () =>
-      (location.href =
-        (hasSsl(link) ? "https://" : "http://") +
-        `${selectedUrl.value}:${link.port}`)
-  );
+  const url =
+    (hasSsl(link) ? "https://" : "http://") +
+    `${selectedUrl.value}:${link.port}`;
+  nextTick(() => window.open(url, newTab.value ? "_blank" : "_self")?.focus());
 }
 
 function hasSsl(link: { [x: string]: any }): boolean {

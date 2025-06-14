@@ -11,6 +11,7 @@ export const useAppStore = defineStore(
     const cardStyle = ref("elevated" as NonNullable<any>);
     const cardColor = ref("black lighten-4");
     const selectedUrl = ref("");
+    const newTab = ref(false);
     const baseUrls = ref([] as string[]);
     const sslMap = ref([] as object[]);
 
@@ -21,6 +22,7 @@ export const useAppStore = defineStore(
       cardStyle,
       cardColor,
       selectedUrl,
+      newTab,
       baseUrls,
       sslMap,
     };
